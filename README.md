@@ -1,70 +1,151 @@
 # GitLite
 
-GitLite is a lightweight Git-inspired version control system built in C++. It is designed to help understand the core concepts of version control, including file tracking, commits, and repository management.
+GitLite is a lightweight, Git-inspired version control system built in C++ as a learning project.
+The goal is to understand how real version control systems work internally by implementing core features like command parsing, repository initialization, staging, commits, and history tracking.
 
-## Features (V1)
+---
 
-* Initialize a repository
-* Add files for tracking
-* Create commits
-* View repository status
-* View commit history
-* Restore previous commits
+## Current Status
 
-## Commands
+🚧 **Early Development Stage**
+
+GitLite currently has a working command-line interface and a functional command dispatch system. Only the `version` command is fully implemented so far.
+
+---
+
+### ✅ Implemented
+
+* Command-line argument parsing using `argc` and `argv`
+* CLI command format:
+
+  ```bash
+  gitlite <command>
+  ```
+* Command routing system using `unordered_map`
+* Function-based command architecture (modular design)
+* Multi-file C++ project structure
+
+### ✅ First Working Command
 
 ```bash
 gitlite version
-gitlite init
-gitlite add <file>
-gitlite commit "<message>"
-gitlite status
-gitlite log
-gitlite checkout <commit-id>
 ```
-## Code Architecture
 
+Output:
+
+```text
+GitLite Version 1.0
+```
+
+---
+
+## Project Structure
+
+```text
 GitLite/
 │
 ├── src/
 │   └── main.cpp
 │
 ├── commands/
+│   ├── version.h
+│   ├── version.cpp
 │   ├── init.h
 │   ├── init.cpp
-│   │
 │   ├── add.h
 │   ├── add.cpp
-│   │
 │   ├── commit.h
 │   ├── commit.cpp
-│   │
 │   ├── log.h
 │   ├── log.cpp
-│   │
-│   ├── status.h
-│   ├── status.cpp
-│   │
-│   └── checkout.h
+│   ├── checkout.h
 │   └── checkout.cpp
 │
 ├── repository/
-│   ├── Repository.h
-│   └── Repository.cpp
+│   └── (future: stores gitlite metadata)
 │
 ├── utils/
-│   ├── FileManager.h
-│   └── FileManager.cpp
+│   └── (future helper functions)
 │
-├── README.md
-└── .gitignore
+└── README.md
+```
 
-## Tech Stack
+---
 
-* C++
-* STL
-* File System Library
+## Build Instructions
 
-## Status
+Compile the project from the **root directory**:
 
-Version 1 (In Development)
+```bash
+g++ src/main.cpp commands/*.cpp -o gitlite
+```
+
+---
+
+## Run
+
+### Version command
+
+```bash
+./gitlite version
+```
+
+---
+
+## How It Works
+
+GitLite uses a simple command dispatcher:
+
+```text
+User Input
+   ↓
+main.cpp
+   ↓
+unordered_map (command router)
+   ↓
+calls corresponding function
+   ↓
+command executes
+```
+
+Example:
+
+```bash
+gitlite version
+```
+
+Becomes:
+
+* Parse `version`
+* Find function in map
+* Execute `version()`
+
+---
+
+## Planned Features (V1)
+
+* `init` → Initialize repository
+* `add` → Stage files
+* `commit` → Save snapshots
+* `status` → Show working tree state
+* `log` → View commit history
+* `checkout` → Restore previous state
+
+---
+
+## Learning Goals
+
+This project is being built to understand:
+
+* How Git works internally
+* Command-line applications in C++
+* File system operations
+* Data structures used in real systems
+* Modular software design
+
+---
+
+## Notes
+
+* This is an educational project, not a production VCS
+* Current focus is building the core engine step by step
