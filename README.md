@@ -9,27 +9,27 @@ The goal is to understand how real version control systems work internally by im
 
 🚧 Early Development Stage (Repository Core Working)
 
-GitLite currently supports a command-line interface, modular command routing, and repository initialization with persistent on-disk storage.
+GitLite supports:
+- CLI command system
+- Command routing
+- Repository initialization with persistent storage
 
 ---
 
 ## Implemented Features
 
 - Command-line argument parsing (argc, argv)
-- CLI format:
-  gitlite <command>
-- Command routing system using unordered_map
+- CLI format: gitlite <command>
+- Command routing using unordered_map
 - Modular command-based architecture
 - Multi-file C++ project structure
-- Repository initialization with disk-based structure
+- Repository initialization with disk structure
 
 ---
 
 ## Working Commands
 
 ### version
-
-Displays GitLite version and available commands.
 
 gitlite version
 
@@ -41,57 +41,54 @@ Commands available: init, add, commit, log, checkout, version
 
 ### init
 
-Initializes a new GitLite repository inside repository/.gitlite.
-
 gitlite init
 
 Behavior:
 
-If repository does not exist:
+If repo does NOT exist:
 Initialized empty GitLite repository in repository/.gitlite
 
-If repository already exists:
+If repo already exists:
 Repository already exists.
 
-What it creates:
+Creates:
 repository/.gitlite/
-├── staging/
-├── commits/
-└── metadata.txt
+|-- staging/
+|-- commits/
+|-- metadata.txt
 
 ---
 
 ## Project Structure
 
 GitLite/
-│
-├── src/
-│   └── main.cpp
-│
-├── commands/
-│   ├── version.h
-│   ├── version.cpp
-│   ├── init.h
-│   ├── init.cpp
-│   ├── add.h
-│   ├── add.cpp
-│   ├── commit.h
-│   ├── commit.cpp
-│   ├── log.h
-│   ├── log.cpp
-│   ├── checkout.h
-│   └── checkout.cpp
-│
-├── repository/
-│   └── .gitlite/
-│       ├── staging/
-│       ├── commits/
-│       └── metadata.txt
-│
-├── utils/
-│   └── (future helper functions)
-│
-└── README.md
+|
+|-- src/
+|   |-- main.cpp
+|
+|-- commands/
+|   |-- version.h
+|   |-- version.cpp
+|   |-- init.h
+|   |-- init.cpp
+|   |-- add.h
+|   |-- add.cpp
+|   |-- commit.h
+|   |-- commit.cpp
+|   |-- log.h
+|   |-- log.cpp
+|   |-- checkout.h
+|   |-- checkout.cpp
+|
+|-- repository/
+|   |-- .gitlite/
+|       |-- staging/
+|       |-- commits/
+|       |-- metadata.txt
+|
+|-- utils/
+|
+|-- README.md
 
 ---
 
@@ -104,7 +101,6 @@ g++ src/main.cpp commands/*.cpp -o gitlite
 ## Run Examples
 
 ./gitlite version
-
 ./gitlite init
 
 ---
@@ -112,21 +108,23 @@ g++ src/main.cpp commands/*.cpp -o gitlite
 ## How It Works
 
 User Input
-↓
+    |
+    v
 main.cpp
-↓
+    |
+    v
 unordered_map (command router)
-↓
-function execution
+    |
+    v
+function dispatch
 
-Example flow:
-
+Example:
 gitlite init
 
-Steps:
+Flow:
 - Check if repository/.gitlite exists
-- If exists → reject initialization
-- If not → create repository structure
+- If yes → reject initialization
+- If no → create repository structure
 - Write metadata file
 
 ---
@@ -135,24 +133,24 @@ Steps:
 
 - add → stage files
 - commit → save snapshots
-- status → show working tree state
-- log → view commit history
-- checkout → restore previous commits
+- status → working tree changes
+- log → commit history
+- checkout → restore previous state
 
 ---
 
 ## Learning Goals
 
-- Understand internal Git architecture
-- Learn system-level C++ programming
-- Work with filesystem operations
-- Build CLI tools
-- Learn persistent storage design
+- Git internal architecture
+- System-level C++ programming
+- Filesystem operations
+- CLI tool design
+- Persistent storage systems
 
 ---
 
 ## Notes
 
 - Educational project (not production VCS)
-- Repository state stored in repository/.gitlite
-- Next milestone: implementing staging system (add)
+- State stored in repository/.gitlite
+- Next milestone: staging system (add)
