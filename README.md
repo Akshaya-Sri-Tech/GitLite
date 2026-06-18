@@ -1,154 +1,102 @@
-# GitLite
+GitLite
 
-GitLite is a lightweight, Git-inspired version control system built in C++ as a learning project.  
-The goal is to understand how real version control systems work internally by implementing core features such as repository initialization, staging, commits, and history tracking.
+GitLite is a lightweight Git-inspired version control system written in C++ for learning how version control systems work internally.
 
----
+It currently supports a command-line interface with a modular command system and repository initialization.
 
-## Current Status
+------------------------------------------------------------
 
-🚧 Early Development Stage (Repository Core Working)
+CURRENT STATUS
 
-GitLite supports:
-- CLI command system
-- Command routing
-- Repository initialization with persistent storage
+- CLI command dispatcher implemented
+- Modular command architecture (each command in separate files)
+- Repository initialization working
+- Persistent storage using filesystem (.gitlite directory)
 
----
+------------------------------------------------------------
 
-## Implemented Features
-
-- Command-line argument parsing (argc, argv)
-- CLI format: gitlite <command>
-- Command routing using unordered_map
-- Modular command-based architecture
-- Multi-file C++ project structure
-- Repository initialization with disk structure
-
----
-
-## Working Commands
-
-### version
+WORKING COMMANDS
 
 gitlite version
-
-Output:
-gitlite version 1.0.0
-Commands available: init, add, commit, log, checkout, version
-
----
-
-### init
+→ Shows version and available commands
 
 gitlite init
+→ Creates repository inside repository/.gitlite
+→ If already exists, prints error message
 
-Behavior:
+------------------------------------------------------------
 
-If repo does NOT exist:
-Initialized empty GitLite repository in repository/.gitlite
-
-If repo already exists:
-Repository already exists.
-
-Creates:
-repository/.gitlite/
-|-- staging/
-|-- commits/
-|-- metadata.txt
-
----
-
-## Project Structure
+REPOSITORY STRUCTURE
 
 GitLite/
-├── src/
-│   └── main.cpp
-│
-├── commands/
-│   ├── version.h
-│   ├── version.cpp
-│   ├── init.h
-│   ├── init.cpp
-│   ├── add.h
-│   ├── add.cpp
-│   ├── commit.h
-│   ├── commit.cpp
-│   ├── log.h
-│   ├── log.cpp
-│   ├── checkout.h
-│   └── checkout.cpp
-│
-├── repository/
-│   └── .gitlite/
-│       ├── staging/
-│       ├── commits/
-│       └── metadata.txt
-│
-├── utils/
-│
-└── README.md
----
+|
+|-- src/
+|   |-- main.cpp
+|
+|-- commands/
+|   |-- version.cpp / .h
+|   |-- init.cpp / .h
+|   |-- add.cpp / .h
+|   |-- commit.cpp / .h
+|   |-- log.cpp / .h
+|   |-- checkout.cpp / .h
+|
+|-- repository/
+|   |-- .gitlite/
+|       |-- staging/
+|       |-- commits/
+|       |-- metadata.txt
+|
+|-- utils/
+|-- README.txt
 
-## Build Instructions
+------------------------------------------------------------
 
-g++ src/main.cpp commands/*.cpp -o gitlite
-
----
-
-## Run Examples
-
-./gitlite version
-./gitlite init
-
----
-
-## How It Works
+FLOW OF EXECUTION
 
 User Input
     |
     v
-main.cpp
+main.cpp (CLI parser)
     |
     v
-unordered_map (command router)
+unordered_map command router
     |
     v
-function dispatch
+calls respective command function
+    |
+    v
+executes command logic
 
 Example:
+
 gitlite init
+→ check if repository/.gitlite exists
+→ if yes: reject
+→ if no: create folder structure + metadata
 
-Flow:
-- Check if repository/.gitlite exists
-- If yes → reject initialization
-- If no → create repository structure
-- Write metadata file
+------------------------------------------------------------
 
----
+DESIGN GOALS
 
-## Planned Features
+- Learn how Git works internally
+- Build CLI-based system in C++
+- Understand file system persistence
+- Practice modular software design
+- Implement version control step by step
 
-- add → stage files
-- commit → save snapshots
-- status → working tree changes
-- log → commit history
-- checkout → restore previous state
+------------------------------------------------------------
 
----
+NEXT FEATURES
 
-## Learning Goals
+- add (staging system)
+- commit (snapshot storage)
+- status (working tree state)
+- log (history tracking)
+- checkout (restore versions)
 
-- Git internal architecture
-- System-level C++ programming
-- Filesystem operations
-- CLI tool design
-- Persistent storage systems
+------------------------------------------------------------
 
----
+NOTE
 
-## Notes
-
-- Educational project (not production VCS)
-- State stored in repository/.gitlite
-- Next milestone: staging system (add)
+This is an educational project, not a production-ready version control system.
