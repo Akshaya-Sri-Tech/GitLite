@@ -1,13 +1,13 @@
 GITLITE
 --------------------------------------------------
 
-DESCRIPTION
+### DESCRIPTION
 GitLite is a lightweight Git-inspired version control system written in C++.
 It is built for understanding how version control systems work internally.
 
 --------------------------------------------------
 
-CURRENT STATUS
+## CURRENT STATUS
 - CLI command system working
 - Command routing using unordered_map
 - Modular command structure
@@ -16,42 +16,18 @@ CURRENT STATUS
 
 --------------------------------------------------
 
-WORKING COMMANDS
+## WORKING COMMANDS
 
-gitlite version
+### gitlite version
 -> prints version and available commands
 
-gitlite init
+### gitlite init
 -> creates repository in repository/.gitlite
 -> prevents reinitialization if already exists
 
 --------------------------------------------------
 
-REPOSITORY STRUCTURE
-
-GitLite/
-  src/
-    main.cpp
-
-  commands/
-    version.cpp / version.h
-    init.cpp / init.h
-    add.cpp / add.h
-    commit.cpp / commit.h
-    log.cpp / log.h
-    checkout.cpp / checkout.h
-
-  repository/
-    .gitlite/
-      staging/
-      commits/
-      metadata.txt
-
-  utils/
-
---------------------------------------------------
-
-FLOW OF EXECUTION
+## FLOW OF EXECUTION
 
 User Input
   |
@@ -67,7 +43,7 @@ calls command function
   v
 executes logic
 
-EXAMPLE:
+## EXAMPLE:
 
 gitlite init
   -> check repository/.gitlite exists
@@ -77,7 +53,7 @@ gitlite init
 
 --------------------------------------------------
 
-DESIGN GOALS
+## DESIGN GOALS
 - Learn Git internals
 - Build CLI tools in C++
 - Understand filesystem persistence
@@ -86,7 +62,7 @@ DESIGN GOALS
 
 --------------------------------------------------
 
-NEXT FEATURES
+## NEXT FEATURES
 - add (staging system)
 - commit (snapshot system)
 - status (working tree tracking)
@@ -95,6 +71,6 @@ NEXT FEATURES
 
 --------------------------------------------------
 
-NOTE
+## NOTE
 This project is for learning purposes only.
 Not a production version control system.
