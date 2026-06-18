@@ -1,47 +1,68 @@
 # GitLite
 
-GitLite is a lightweight, Git-inspired version control system built in C++ as a learning project.
-The goal is to understand how real version control systems work internally by implementing core features like command parsing, repository initialization, staging, commits, and history tracking.
+GitLite is a lightweight, Git-inspired version control system built in C++ as a learning project.  
+The goal is to understand how real version control systems work internally by implementing core features such as repository initialization, staging, commits, and history tracking.
 
 ---
 
 ## Current Status
 
-🚧 **Early Development Stage**
+🚧 Early Development Stage (Repository Core Working)
 
-GitLite currently has a working command-line interface and a functional command dispatch system. Only the `version` command is fully implemented so far.
+GitLite currently supports a command-line interface, modular command routing, and repository initialization with persistent on-disk storage.
 
 ---
 
-### ✅ Implemented
+## Implemented Features
 
-* Command-line argument parsing using `argc` and `argv`
-* CLI command format:
-
-  ```bash
+- Command-line argument parsing (argc, argv)
+- CLI format:
   gitlite <command>
-  ```
-* Command routing system using `unordered_map`
-* Function-based command architecture (modular design)
-* Multi-file C++ project structure
+- Command routing system using unordered_map
+- Modular command-based architecture
+- Multi-file C++ project structure
+- Repository initialization with disk-based structure
 
-### ✅ First Working Command
+---
 
-```bash
+## Working Commands
+
+### version
+
+Displays GitLite version and available commands.
+
 gitlite version
-```
 
 Output:
+gitlite version 1.0.0
+Commands available: init, add, commit, log, checkout, version
 
-```text
-GitLite Version 1.0
-```
+---
+
+### init
+
+Initializes a new GitLite repository inside repository/.gitlite.
+
+gitlite init
+
+Behavior:
+
+If repository does not exist:
+Initialized empty GitLite repository in repository/.gitlite
+
+If repository already exists:
+Repository already exists.
+
+What it creates:
+repository/.gitlite/
+├── staging/
+├── commits/
+└── metadata.txt
 
 ---
 
 ## Project Structure
 
-```text
 GitLite/
 │
 ├── src/
@@ -62,90 +83,76 @@ GitLite/
 │   └── checkout.cpp
 │
 ├── repository/
-│   └── (future: stores gitlite metadata)
+│   └── .gitlite/
+│       ├── staging/
+│       ├── commits/
+│       └── metadata.txt
 │
 ├── utils/
 │   └── (future helper functions)
 │
 └── README.md
-```
 
 ---
 
 ## Build Instructions
 
-Compile the project from the **root directory**:
-
-```bash
 g++ src/main.cpp commands/*.cpp -o gitlite
-```
 
 ---
 
-## Run
+## Run Examples
 
-### Version command
-
-```bash
 ./gitlite version
-```
+
+./gitlite init
 
 ---
 
 ## How It Works
 
-GitLite uses a simple command dispatcher:
-
-```text
 User Input
-   ↓
+↓
 main.cpp
-   ↓
+↓
 unordered_map (command router)
-   ↓
-calls corresponding function
-   ↓
-command executes
-```
+↓
+function execution
 
-Example:
+Example flow:
 
-```bash
-gitlite version
-```
+gitlite init
 
-Becomes:
-
-* Parse `version`
-* Find function in map
-* Execute `version()`
+Steps:
+- Check if repository/.gitlite exists
+- If exists → reject initialization
+- If not → create repository structure
+- Write metadata file
 
 ---
 
-## Planned Features (V1)
+## Planned Features
 
-* `init` → Initialize repository
-* `add` → Stage files
-* `commit` → Save snapshots
-* `status` → Show working tree state
-* `log` → View commit history
-* `checkout` → Restore previous state
+- add → stage files
+- commit → save snapshots
+- status → show working tree state
+- log → view commit history
+- checkout → restore previous commits
 
 ---
 
 ## Learning Goals
 
-This project is being built to understand:
-
-* How Git works internally
-* Command-line applications in C++
-* File system operations
-* Data structures used in real systems
-* Modular software design
+- Understand internal Git architecture
+- Learn system-level C++ programming
+- Work with filesystem operations
+- Build CLI tools
+- Learn persistent storage design
 
 ---
 
 ## Notes
 
-* This is an educational project, not a production VCS
-* Current focus is building the core engine step by step
+- Educational project (not production VCS)
+- Repository state stored in repository/.gitlite
+- Next milestone: implementing staging system (add)
