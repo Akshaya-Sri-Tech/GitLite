@@ -8,20 +8,20 @@ namespace fs = std::filesystem;
 
 void init()
 {
-    if(fs::exists(".gitlite"))
+    if(fs::exists("repository/.gitlite"))
     {
         cout << "Repository already exists." << endl;
         return;
     }
     else
     {
-        fs::create_directory(".gitlite");
-        fs::create_directory(".gitlite/staging");
-        fs::create_directory(".gitlite/commits");
-        ofstream metadataFile(".gitlite/metadata.txt");
+        fs::create_directory("repository/.gitlite");
+        fs::create_directories("repository/.gitlite/staging");
+        fs::create_directories("repository/.gitlite/commits");
+        ofstream metadataFile("repository/.gitlite/metadata.txt");
         metadataFile << "GitLite repository initialized" << endl;
         metadataFile.close();
-        cout << "Initialized empty GitLite repository in .gitlite" << endl;
+        cout << "Initialized empty GitLite repository in repository/.gitlite" << endl;
     }
     
 }
