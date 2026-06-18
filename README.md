@@ -62,34 +62,32 @@ repository/.gitlite/
 ## Project Structure
 
 GitLite/
-|
-|-- src/
-|   |-- main.cpp
-|
-|-- commands/
-|   |-- version.h
-|   |-- version.cpp
-|   |-- init.h
-|   |-- init.cpp
-|   |-- add.h
-|   |-- add.cpp
-|   |-- commit.h
-|   |-- commit.cpp
-|   |-- log.h
-|   |-- log.cpp
-|   |-- checkout.h
-|   |-- checkout.cpp
-|
-|-- repository/
-|   |-- .gitlite/
-|       |-- staging/
-|       |-- commits/
-|       |-- metadata.txt
-|
-|-- utils/
-|
-|-- README.md
-
+├── src/
+│   └── main.cpp
+│
+├── commands/
+│   ├── version.h
+│   ├── version.cpp
+│   ├── init.h
+│   ├── init.cpp
+│   ├── add.h
+│   ├── add.cpp
+│   ├── commit.h
+│   ├── commit.cpp
+│   ├── log.h
+│   ├── log.cpp
+│   ├── checkout.h
+│   └── checkout.cpp
+│
+├── repository/
+│   └── .gitlite/
+│       ├── staging/
+│       ├── commits/
+│       └── metadata.txt
+│
+├── utils/
+│
+└── README.md
 ---
 
 ## Build Instructions
