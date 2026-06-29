@@ -16,7 +16,8 @@ void init()
     else
     {
         fs::create_directory("repository/.gitlite");
-        fs::create_directories("repository/.gitlite/staging");
+        fs::create_directories("repository/.gitlite/staging/objects");
+        ofstream indexFile("repository/.gitlite/staging/index.txt");
         fs::create_directories("repository/.gitlite/commits");
         ofstream metadataFile("repository/.gitlite/metadata.txt");
         metadataFile << "GitLite repository initialized" << endl;

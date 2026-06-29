@@ -8,7 +8,7 @@
 #include "../commands/commit.h"
 #include "../commands/log.h"
 #include "../commands/checkout.h"
-
+#include "../commands/status.h"     
 using namespace std;
 int main(int argc, char* argv[])
 {
@@ -25,10 +25,11 @@ int main(int argc, char* argv[])
     {
         {"version",version},
         {"init",init},
-        {"add",add},
+        {"add", [&]() { add(argv, argc); }},
         {"commit",commit},
         {"log",log},
-        {"checkout",checkout}
+        {"checkout",checkout},
+        {"status",status}
     };
     if(commands_list.find(command)!=commands_list.end())
     {

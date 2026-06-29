@@ -1,3 +1,3 @@
 #pragma once
 
-void add();
+void add(char* argv[], int argc);
