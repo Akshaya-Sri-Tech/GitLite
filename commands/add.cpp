@@ -15,12 +15,12 @@ string computeHash(string file_name)
         exit(1);
     }
     char ch;
-    unsigned long long blob=0;
+    unsigned long long hash_val=0;
     while((file.get(ch)))
     {
-        blob=blob*31+static_cast<unsigned char>(ch);
+        hash_val=hash_val*31+static_cast<unsigned char>(ch);
     }
-    return to_string(blob);
+    return to_string(hash_val);
 }
 
 void add(char* argv[], int argc)
