@@ -42,8 +42,8 @@ void add(char* argv[], int argc)
     string file_hash = computeHash(file_name);
     string folder= file_hash.substr(0, 2);
     string object=file_hash.substr(2);
-    fs::create_directories("repository/.gitlite/staging/objects/"+folder);
-    ofstream objectFile("repository/.gitlite/staging/objects/"+folder+"/"+object, ios::binary);
+    fs::create_directories("repository/.gitlite/objects/"+folder);
+    ofstream objectFile("repository/.gitlite/objects/"+folder+"/"+object, ios::binary);
     if(!objectFile)
     {
         cout<<"Error creating object file."<<endl;
@@ -55,10 +55,9 @@ void add(char* argv[], int argc)
         cout<<"File not found: "<<file_name<<endl;
         exit(1);
     }
-    
     objectFile << file.rdbuf();
 
-    ofstream indexFile("repository/.gitlite/staging/index.txt", ios::app);
+    ofstream indexFile("repository/.gitlite/index", ios::app);
     if(!indexFile)
     {
         cout<<"Error opening index file."<<endl;

@@ -88,14 +88,13 @@ GitLite creates the following repository structure:
 
 ```text
 repository/
-└── .gitlite/
-    ├── staging/
-    │   ├── objects/
-    │   └── index.txt
-    │
-    ├── commits/
-    │
-    └── metadata.txt
+ └──.gitlite/
+        ├── HEAD
+        ├── index
+        ├── objects/
+        └── refs/
+                └── heads/
+                        └── main
 ```
 
 ---

@@ -16,14 +16,15 @@ void init()
     else
     {
         fs::create_directory("repository/.gitlite");
-        fs::create_directories("repository/.gitlite/staging/objects");
-        ofstream indexFile("repository/.gitlite/staging/index.txt");
-        fs::create_directories("repository/.gitlite/commits");
-        ofstream metadataFile("repository/.gitlite/metadata.txt");
-        metadataFile << "GitLite repository initialized" << endl;
-        metadataFile.close();
+        fs::create_directories("repository/.gitlite/objects");
+        fs::create_directories("repository/.gitlite/refs/heads");
+
+        ofstream headFile("repository/.gitlite/HEAD");
+        headFile << "ref: refs/heads/main" << endl;
+        headFile.close();
+        ofstream("repository/.gitlite/refs/heads/main");
+        ofstream("repository/.gitlite/index");
+
         cout << "Initialized empty GitLite repository in repository/.gitlite" << endl;
     }
-    
 }
- 
