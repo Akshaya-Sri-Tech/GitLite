@@ -8,7 +8,7 @@ GitLite is a learning-focused implementation of a version control system that re
 
 ---
 
-## Why GitLite?
+# Why GitLite?
 
 Git is one of the most widely used developer tools, but most programmers interact with it only through commands.
 
@@ -24,6 +24,7 @@ The goal of GitLite is to understand what actually happens internally when comma
 * ✅ `version`
 * ✅ `init`
 * ✅ `add <filename>`
+* ✅ `commit`
 * ✅ Repository initialization
 * ✅ Automatic `.gitlite` directory creation
 * ✅ Staging area implementation
@@ -32,7 +33,6 @@ The goal of GitLite is to understand what actually happens internally when comma
 
 ### Under Development
 
-* 🚧 `commit`
 * 🚧 `status`
 * 🚧 `log`
 * 🚧 `checkout`
@@ -46,12 +46,12 @@ The goal of GitLite is to understand what actually happens internally when comma
 
 ##Libraries Used
 
-  * iostream
-  * fstream
-  * filesystem
-  * string
-  * unordered_map
-  * functional
+* iostream
+* fstream
+* filesystem
+* string
+* unordered_map
+* functional
 
 ---
 
@@ -134,9 +134,58 @@ Stages a snapshot of the specified file by:
 
 ---
 
+## Commit Changes
+
+```bash
+./gitlite commit "commit message"
+```
+
+Creates a commit from the currently staged files.
+
+The commit process works by:
+
+1. Reading the staging `index`.
+2. Collecting the staged file information.
+3. Reading the current `HEAD` to find the parent commit.
+4. Creating commit metadata including the staged files, parent commit, timestamp, and commit message.
+5. Generating a content-based hash for the commit.
+6. Storing the commit object inside `.gitlite/objects/`.
+7. Updating the current branch to point to the new commit.
+8. Clearing the staging `index` after a successful commit. 📦
+
+Example:
+
+```bash
+./gitlite add sample1.txt
+./gitlite commit "Added sample1"
+```
+
+A commit object contains information similar to:
+
+```text
+tree:
+<staged file information>
+
+parent: <previous commit hash>
+
+timestamp: <commit timestamp>
+
+message: <commit message>
+```
+
+The first commit has no parent:
+
+```text
+parent: none
+```
+
+Subsequent commits store the previous commit hash as their parent, creating the foundation for commit history. 🔗
+
+---
+
 # How GitLite Works
 
-```
+```text
 Working Directory
         │
         │
@@ -158,6 +207,18 @@ Update index.txt
         │
         ▼
 Ready for Commit
+        │
+        ▼
+gitlite commit
+        │
+        ▼
+Create Commit Object
+        │
+        ▼
+Update Branch Reference
+        │
+        ▼
+Clear Staging Index
 ```
 
 ---
@@ -166,7 +227,7 @@ Ready for Commit
 
 GitLite currently stores staged file snapshots inside:
 
-```
+```text
 repository/.gitlite/staging/objects/
 ```
 
@@ -179,6 +240,14 @@ objects/
 └── 52/
     └── 52130542502443599
 ```
+
+Commit objects are stored inside:
+
+```text
+repository/.gitlite/objects/
+```
+
+using the same hash-based directory structure. 📁
 
 ---
 
@@ -220,7 +289,7 @@ This project is being built to understand:
 * [x] version
 * [x] init
 * [x] add
-* [ ] commit
+* [x] commit
 * [ ] status
 * [ ] log
 * [ ] checkout
@@ -255,4 +324,3 @@ It is **not** intended to be a full replacement for Git, but rather an education
 GitLite is inspired by Git and is built purely for educational purposes to explore the internal design of version control systems.
 
 ---
-
