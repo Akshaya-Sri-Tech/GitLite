@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
         {"version",version},
         {"init",init},
         {"add", [&]() { add(argv, argc); }},
-        {"commit",commit},
+        {"commit", [&]() { commit(argv, argc); }},
         {"log",log},
         {"checkout",checkout},
         {"status",status}

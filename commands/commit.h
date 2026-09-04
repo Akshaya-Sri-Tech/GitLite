@@ -1,3 +1,3 @@
 #pragma once
 
-void commit();
+void commit(char* argv[], int argc);

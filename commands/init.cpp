@@ -15,7 +15,7 @@ void init()
     }
     else
     {
-        fs::create_directory("repository/.gitlite");
+        fs::create_directories("repository/.gitlite");
         fs::create_directories("repository/.gitlite/objects");
         fs::create_directories("repository/.gitlite/refs/heads");
 

@@ -65,7 +65,6 @@ void add(char* argv[], int argc)
     }
     indexFile << file_name << " |" << file_hash << endl;
     indexFile.close();
-
     
     cout<<"File added to staging area: "<<file_name<<endl;
 

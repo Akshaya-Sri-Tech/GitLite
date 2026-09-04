@@ -1,0 +1,32 @@
+# Compiled executables
+gitlite
+gitlite.exe
+*.exe
+*.out
+
+# Object files
+*.o
+*.obj
+
+# Build directories
+build/
+bin/
+
+# VS Code
+.vscode/
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# GitLite generated repository
+repository/
+
+# Debug files
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
