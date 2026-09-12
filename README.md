@@ -25,6 +25,7 @@ The goal of GitLite is to understand what actually happens internally when comma
 * ✅ `init`
 * ✅ `add <filename>`
 * ✅ `commit`
+* ✅ `log`
 * ✅ Repository initialization
 * ✅ Automatic `.gitlite` directory creation
 * ✅ Staging area implementation
@@ -34,7 +35,6 @@ The goal of GitLite is to understand what actually happens internally when comma
 ### Under Development
 
 * 🚧 `status`
-* 🚧 `log`
 * 🚧 `checkout`
 
 ---
@@ -183,6 +183,71 @@ Subsequent commits store the previous commit hash as their parent, creating the 
 
 ---
 
+## View Commit History
+
+```bash
+./gitlite log
+```
+
+Displays the commit history of the current branch.
+
+The `log` command works by:
+
+1. Reading `HEAD` to determine the current branch.
+2. Reading the current commit hash from the branch reference.
+3. Opening the corresponding commit object from `.gitlite/objects/`.
+4. Reading the commit message and timestamp.
+5. Reading the parent commit hash.
+6. Following the parent commit until reaching the first commit.
+7. Displaying the commits from newest to oldest.
+
+Example:
+
+```text
+./gitlite log
+```
+
+Output:
+
+```text
+commit 182736451
+Date:   Sat Sep 12 14:30:25 2026
+
+    Added sample2
+
+commit 928374651
+Date:   Sat Sep 12 14:12:03 2026
+
+    Added sample1
+
+commit 472819305
+Date:   Sat Sep 12 13:45:17 2026
+
+    Initial commit
+```
+
+Each commit stores its parent commit hash, creating a linked chain of commit history:
+
+```text
+HEAD
+ │
+ ▼
+Commit 3
+ │
+ ▼
+Commit 2
+ │
+ ▼
+Commit 1
+ │
+ ▼
+none
+```
+
+The `log` command traverses this chain backwards to reconstruct the commit history.
+
+---
+
 # How GitLite Works
 
 ```text
@@ -291,7 +356,7 @@ This project is being built to understand:
 * [x] add
 * [x] commit
 * [ ] status
-* [ ] log
+* [x] log
 * [ ] checkout
 
 ## Version 2
@@ -321,6 +386,4 @@ It is **not** intended to be a full replacement for Git, but rather an education
 
 # Acknowledgements
 
-GitLite is inspired by Git and is built purely for educational purposes to explore the internal design of version control systems.
-
----
+GitLite is inspired by Git and is built purely for educational purposes to explore the internal design of Git.
