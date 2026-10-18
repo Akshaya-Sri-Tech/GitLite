@@ -50,10 +50,73 @@ void branch(char* argv[], int argc)
             }
         }
     }
-    else if (argc == 3)
+    else if(argc == 3)
     {
         string newBranch = argv[2];
-        ofstream("repository/.gitlite/refs/heads/"+newBranch);
+        string branchPath = "repository/.gitlite/refs/heads/" + newBranch;
+
+        if(fs::exists(branchPath))
+        {
+            cout << "Branch already exists: " << newBranch << endl;
+            return;
+        }
+
+        if(newBranch == "HEAD")
+        {
+            cout << RED << "Invalid branch name." << RESET << endl;
+            return;
+        }
+
+        string head;
+        ifstream headFile("repository/.gitlite/HEAD");
+
+        if(!headFile || !getline(headFile, head))
+        {
+            cout  << "Error reading HEAD." << endl;
+            return;
+        }
+
+        headFile.close();
+
+        if(head.rfind("ref: ", 0) != 0)
+        {
+            cout << "HEAD is not pointing to a branch."  << endl;
+            return;
+        }
+
+        string currentRef = head.substr(5);
+        string currentBranchPath = "repository/.gitlite/" + currentRef;
+
+        if(!fs::exists(currentBranchPath))
+        {
+            cout << "Current branch reference not found."  << endl;
+            return;
+        }
+
+        ifstream currentBranchFile(currentBranchPath);
+        string commitHash;
+
+        getline(currentBranchFile, commitHash);
+        currentBranchFile.close();
+
+        if(commitHash.empty())
+        {
+            cout << "Cannot create a branch before the first commit." << endl;
+            return;
+        }
+
+        ofstream newBranchFile(branchPath);
+
+        if(!newBranchFile)
+        {
+            cout << "Error creating branch." <<  endl;
+            return;
+        }
+
+        newBranchFile << commitHash;
+        newBranchFile.close();
+
+        cout << "Branch '" << newBranch << "' created."  << endl;
     }
     else
     {
