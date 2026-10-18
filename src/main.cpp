@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
         {"commit", [&]() { commit(argv, argc); }},
         {"log",log},
         {"branch",[&]() { branch(argv, argc); }},
-        {"checkout",checkout},
+        {"checkout", [&]() { checkout(argv, argc); }},
         {"status",status}
     };
     if(commands_list.find(command)!=commands_list.end())

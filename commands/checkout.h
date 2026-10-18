@@ -1,3 +1,3 @@
 #pragma once
 
-void checkout();
+void checkout(char* argv[], int argc);
