@@ -4,6 +4,7 @@
 #include <string>
 #include <ctime>
 #include "commit.h"
+#include "../utils/repository.h"
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -26,11 +27,8 @@ void commit(char* argv[], int argc)
         return;
     }
 
-    if(!fs::exists("repository/.gitlite"))
-    {
-        cout << "Repository not initialized. Please run './gitlite init' first." << endl;
+    if(!isRepositoryInitialized())
         return;
-    }
 
     if(!fs::exists("repository/.gitlite/index"))
     {

@@ -8,11 +8,10 @@ namespace fs = std::filesystem;
 
 void init()
 {
-    if(fs::exists("repository/.gitlite"))
-    {
-        cout << "Repository already exists." << endl;
-        return;
+    if(fs::exists("repository/.gitlite")){
+        cout<<"Repository already initialized."<<endl; return;
     }
+        
     else
     {
         fs::create_directories("repository/.gitlite");

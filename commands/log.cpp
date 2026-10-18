@@ -3,17 +3,15 @@
 #include <filesystem>
 #include <string>
 #include "log.h"
+#include "../utils/repository.h"
 
 using namespace std;
 namespace fs = std::filesystem;
 
 void log()
 {
-    if(!fs::exists("repository/.gitlite"))
-    {
-        cout << "Repository not initialized. Please run './gitlite init' first." << endl;
+    if(!isRepositoryInitialized())
         return;
-    }
 
     if(!fs::exists("repository/.gitlite/HEAD"))
     {

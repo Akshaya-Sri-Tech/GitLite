@@ -3,17 +3,16 @@
 #include<fstream>
 #include<filesystem>
 #include<string>
+#include "status.h"
+#include "../utils/repository.h"
 using namespace std;
 
 namespace fs = std::filesystem;
 
 void status()
 {
-    if(!fs::exists("repository/.gitlite"))
-    {
-        cout<<"Repository not initialized. Please run './gitlite init' first."<<endl;
+    if(!isRepositoryInitialized())
         return;
-    }
 
     ifstream headFile("repository/.gitlite/HEAD");
     string head;

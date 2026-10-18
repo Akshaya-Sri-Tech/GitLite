@@ -3,6 +3,7 @@
 #include<fstream>
 #include<filesystem>
 #include "add.h"
+#include "../utils/repository.h"
 namespace fs = std::filesystem;
 using namespace std;    
 
@@ -31,11 +32,8 @@ void add(char* argv[], int argc)
         return;
     }
 
-    if(!fs::exists("repository/.gitlite"))
-    {
-        cout<<"Repository not initialized. Please run './gitlite init' first."<<endl;
+    if(!isRepositoryInitialized())
         return;
-    }
 
     string file_name=argv[2];
 
