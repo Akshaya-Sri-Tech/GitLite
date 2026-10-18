@@ -7,6 +7,7 @@
 #include "../commands/add.h"
 #include "../commands/commit.h"
 #include "../commands/log.h"
+#include "../commands/branch.h"
 #include "../commands/checkout.h"
 #include "../commands/status.h"     
 using namespace std;
@@ -28,6 +29,7 @@ int main(int argc, char* argv[])
         {"add", [&]() { add(argv, argc); }},
         {"commit", [&]() { commit(argv, argc); }},
         {"log",log},
+        {"branch",[&]() { branch(argv, argc); }},
         {"checkout",checkout},
         {"status",status}
     };

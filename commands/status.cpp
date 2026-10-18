@@ -4,6 +4,7 @@
 #include<filesystem>
 #include<string>
 #include "status.h"
+#include "../utils/colors.h"
 #include "../utils/repository.h"
 using namespace std;
 
@@ -85,6 +86,6 @@ void status()
     else
     {
         cout<<"Working tree clean."<<endl;
-        cout<<"Everything up to date."<<endl;
+        cout<<GREEN<<"Everything up to date."<<RESET<<endl;
     }
 }
